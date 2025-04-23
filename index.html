@@ -1,240 +1,262 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Queremos Gorditas</title>
-
-    <!-- Enlace a la fuente Exo desde Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap" rel="stylesheet">
-
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: 'Exo', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ff802b; /* Naranja intenso */
-            color: #333;
-            position: relative; /* Para posicionar las decoraciones */
-        }
-
-        /* Estilos de las decoraciones */
-        .decoracion-izquierda {
-            position: fixed;
-            left: auto;
-            top: 5%;
-            width: 20%; /* Ancho del 20% */
-            height: calc(100vh - 100px); /* Altura de la ventana menos el menú */
-            background-image: url('Izquierda.PNG'); /* Imagen de decoración izquierda */
-            background-repeat: no-repeat;
-            background-size: cover; /* Ajustar imagen para cubrir el área */
-            z-index: 10; /* Asegura que esté sobre otros elementos */
-        }
-
-        .decoracion-derecha {
-            position: fixed;
-            right: 1%; /* Margen derecho del 1% */
-            top: 5%; /* A 5% del top */
-            width: 20%; /* Ancho del 20% */
-            height: calc(100vh - 100px); /* Altura de la ventana menos el menú */
-            background-image: url('Derecha.PNG'); /* Imagen de decoración derecha */
-            background-repeat: no-repeat;
-            background-size: cover; /* Ajustar imagen para cubrir el área */
-            z-index: 10; /* Asegura que esté sobre otros elementos */
-        }
-
-        /* Estilos del menú de navegación */
-        nav {
-            background-color: #002244; /* Azul marino */
-            color: #ffffff;
-            padding: 15px;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            display: flex; /* Para hacer el menú horizontal */
-            justify-content: center; /* Centrar los elementos del menú */
-        }
-
-        nav:hover {
-            background-color: #001122; /* Un tono más oscuro al pasar el mouse */
-        }
-
-        nav a {
-            color: #ffffff;
-            margin: 0 20px; /* Espaciado entre los enlaces */
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            transition: color 0.3s; /* Transición suave para el color */
-        }
-
-        nav a:hover {
-            color: #ffcc99; /* Tono claro de naranja */
-        }
-
-        nav a::after {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: #ffcc99; /* Tono claro de naranja */
-            transition: transform 0.3s; /* Transición suave para la barra */
-            transform: scaleX(0); /* Comienza con escala 0 */
-            margin: auto;
-        }
-
-        nav a:hover::after {
-            transform: scaleX(1); /* La barra se expande al 100% al pasar el mouse */
-        }
-
-        /* Espaciador para compensar el menú fijo */
-        .spacer {
-            height: 60px; /* Ajusta esta altura al tamaño del menú */
-        }
-
-           /* Estilos de las secciones */
-        .section {
-            padding: 50px;
-            text-align: center;
-            margin: 20px auto;
-            max-width: 1000px;
-            background-color: #ffffff;
-            color: #000000;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            transition: transform 0.3s; /* Transición suave para el efecto de escala */
-        }
-
-        .section:hover {
-            transform: scale(1.02); /* Aumenta ligeramente el tamaño al pasar el mouse */
-        }
-
-        /* Estilos del botón de inicio */
-        .inicio-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #ff6600; /* Naranja intenso */
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s; /* Transición suave para el fondo */
-        }
-
-        .inicio-btn:hover {
-            background-color: #cc5200; /* Un tono más oscuro de naranja */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
-        }
-
-        /* Estilos específicos para el pie de página fijo */
-        footer {
-            background-color: #002244; /* Azul marino */
-            color: #ffffff;
-            text-align: center;
-            padding: 20px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Espaciado para compensar el footer fijo */
-        .footer-spacer {
-            height: 50px; /* Ajusta esta altura al tamaño del footer */
-        }
-
-        /* Estilos para el mapa */
-        .map-container {
-            margin-top: 20px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 300px; /* Altura del mapa */
-            border: 0; /* Sin borde */
-        }
-
-        /* Estilos para el logotipo */
-        .logo {
-            position: fixed; /* Fijo en la parte superior de la sección */
-            top: 40px; /* Espacio desde la parte superior */
-            left: 15px; /* Espacio desde la izquierda */
-            width: 100%; /* Aumentar al 100% */
-            max-width: 150px; /* Ajustar el tamaño máximo */
-            z-index: 1100; /* Asegura que el logo esté sobre otros elementos */
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 5)); /* Efecto de brillo permanente */
-            transition: filter 0.3s; /* Transición suave para el brillo */
-        }
-        
-        .logo:hover {
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4)); /* Menos brillo al pasar el mouse */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queremos Gorditas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <style>
+    body {
+      font-family: 'Exo', sans-serif;
+      background-color: #ff802b;
+    }
+    .decoracion-izquierda, .decoracion-derecha {
+      position: fixed;
+      top: 5%;
+      width: 20%;
+      height: calc(100vh - 100px);
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: 10;
+    }
+    .decoracion-izquierda {
+      left: 0;
+      background-image: url('Izquierda.PNG');
+    }
+    .decoracion-derecha {
+      right: 1%;
+      background-image: url('Derecha.PNG');
+    }
+    .logo {
+      position: fixed;
+      top: 40px;
+      left: 15px;
+      max-width: 150px;
+      z-index: 1100;
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 5));
+      transition: filter 0.3s;
+    }
+    .logo:hover {
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    }
+    .menu-item {
+      transition: transform 0.3s;
+    }
+    .menu-item:hover {
+      transform: scale(1.05);
+    }
+    #back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #ff6600;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      transition: background-color 0.3s;
+    }
+    #back-to-top:hover {
+      background-color: #cc5200;
+    }
+    @media (max-width: 768px) {
+      .decoracion-izquierda, .decoracion-derecha {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
+  <!-- Decoraciones laterales -->
+  <div class="decoracion-izquierda"></div>
+  <div class="decoracion-derecha"></div>
 
-    <!-- Decoraciones laterales -->
-    <div class="decoracion-izquierda"></div>
-    <div class="decoracion-derecha"></div>
+  <!-- Logotipo -->
+  <img src="Logo.PNG" alt="Logotipo Queremos Gorditas" class="logo">
 
-    <!-- Menú de navegación -->
-    <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#menu-diario">Menú Diario</a>
-        <a href="#combos">Combos</a>
-        <a href="#contacto">Contacto</a>
+  <!-- Header -->
+  <header class="bg-[#002244] text-white sticky top-0 z-50">
+    <nav class="container mx-auto px-4 py-4 flex justify-center items-center">
+      <div class="hidden md:flex space-x-6">
+        <a href="#inicio" class="hover:text-[#ffcc99] relative group">Inicio
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#ffcc99] transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+        </a>
+        <a href="#menu-diario" class="hover:text-[#ffcc99] relative group">Menú Diario
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#ffcc99] transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+        </a>
+        <a href="#combos" class="hover:text-[#ffcc99] relative group">Combos
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#ffcc99] transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+        </a>
+        <a href="#contacto" class="hover:text-[#ffcc99] relative group">Contacto
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#ffcc99] transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+        </a>
+      </div>
+      <button class="md:hidden" onclick="toggleMenu()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
     </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-[#002244]">
+      <a href="#inicio" class="block px-4 py-2 hover:bg-[#001122] text-white">Inicio</a>
+      <a href="#menu-diario" class="block px-4 py-2 hover:bg-[#001122] text-white">Menú Diario</a>
+      <a href="#combos" class="block px-4 py-2 hover:bg-[#001122] text-white">Combos</a>
+      <a href="#contacto" class="block px-4 py-2 hover:bg-[#001122] text-white">Contacto</a>
+    </div>
+  </header>
 
-    <!-- Espaciador para compensar el menú fijo -->
-    <div class="spacer"></div>
+  <!-- Botón Regresar al Inicio -->
+  <button id="back-to-top" onclick="scrollToTop()">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+    </svg>
+  </button>
 
-    <!-- Logotipo -->
-    <img src="Logo.PNG" alt="Logotipo Queremos Gorditas" class="logo">
+  <!-- Inicio -->
+  <section id="inicio" class="py-12">
+    <div class="container mx-auto px-4 text-center max-w-4xl bg-white shadow-lg rounded-lg">
+      <h2 class="text-3xl font-bold mb-4">Bienvenidos a Queremos Gorditas</h2>
+      <p class="text-lg mb-6">Aquí podrás encontrar la mejor comida, preparada con ingredientes frescos y recetas tradicionales.</p>
+    </div>
+  </section>
 
-    <!-- Secciones de la página -->
-    <section id="inicio" class="section">
-        <h2>Inicio</h2>
-        <p>Bienvenidos a Queremos Gorditas. Aquí podrás encontrar la mejor comida.</p>
-        <a href="#inicio" class="inicio-btn">Inicio</a>
-    </section>
+  <!-- Menú Diario -->
+  <section id="menu-diario" class="py-12 bg-[#E5E7EB]">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Menú Diario</h2>
+      <p class="text-lg text-center mb-6">Descubre nuestras opciones frescas y deliciosas que cambian todos los días.</p>
+      <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
 
-    <section id="menu-diario" class="section">
-        <h2>Menú Diario</h2>
-        <p>Descubre nuestras opciones frescas y deliciosas que cambian todos los días.</p>
-        <a href="#inicio" class="inicio-btn">Inicio</a>
-    </section>
+  <!-- Combos -->
+  <section id="combos" class="py-12">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Combos</h2>
+      <p class="text-lg text-center mb-6">Aprovecha nuestras promociones especiales y combos para todos los gustos.</p>
+      <div id="combo-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+  </section>
 
-    <section id="combos" class="section">
-        <h2>Combos</h2>
-        <p>Aprovecha nuestras promociones especiales y combos para todos los gustos.</p>
-        <a href="#inicio" class="inicio-btn">Inicio</a>
-    </section>
-
-    <section id="contacto" class="section">
-        <h2>Contacto</h2>
-        <p>Ubicación: Veracruz #726 Barrio de San Marcos C.P. 20070 Aguascalientes, Ags.</p>
-        <p>Teléfono: (449) 125-75-60</p>
-        <p>Email: info@queremosgorditas.com</p>
-
-        <!-- Mapa de Google Maps -->
-        <div class="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.6409490310663!2d-102.28792798567226!3d21.889193185896112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b1596f624f12f%3A0x9bb05fc100446fa0!2sVeracruz%20726%2C%20San%20Marcos%2C%2020070%20Aguascalientes%2C%20Ags.!5e0!3m2!1ses!2smx!4v1697620908253!5m2!1ses!2smx" allowfullscreen="" loading="lazy"></iframe>
+  <!-- Contacto -->
+  <section id="contacto" class="py-12 bg-[#E5E7EB]">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <h2 class="text-3xl font-bold text-center mb-8">Contacto</h2>
+      <p class="text-lg text-center mb-4">Ubicación: Veracruz #726 Barrio de San Marcos C.P. 20070 Aguascalientes, Ags.</p>
+      <p class="text-lg text-center mb-4">Teléfono: (449) 125-75-60</p>
+      <p class="text-lg text-center mb-6">Email: queremosgorditas@gmail.com</p>
+      <form id="contact-form" class="max-w-lg mx-auto mb-6">
+        <div class="mb-4">
+          <label for="name" class="block text-lg mb-2">Nombre</label>
+          <input type="text" id="name" required class="w-full p-3 border rounded-lg">
         </div>
-        <a href="#inicio" class="inicio-btn">Inicio</a>
-    </section>
+        <div class="mb-4">
+          <label for="email" class="block text-lg mb-2">Correo Electrónico</label>
+          <input type="email" id="email" required class="w-full p-3 border rounded-lg">
+        </div>
+        <div class="mb-4">
+          <label for="message" class="block text-lg mb-2">Mensaje</label>
+          <textarea id="message" required class="w-full p-3 border rounded-lg h-32"></textarea>
+        </div>
+        <button type="submit" class="bg-[#ff6600] text-white px-6 py-3 rounded-lg hover:bg-[#cc5200] transition">Enviar</button>
+      </form>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.6409490310663!2d-102.28792798567226!3d21.889193185896112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b1596f624f12f%3A0x9bb05fc100446fa0!2sVeracruz%20726%2C%20San%20Marcos%2C%2020070%20Aguascalientes%2C%20Ags.!5e0!3m2!1ses!2smx!4v1697620908253!5m2!1ses!2smx" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
 
-    <!-- Espaciador para el footer fijo -->
-    <div class="footer-spacer"></div>
+  <!-- Footer -->
+  <footer class="bg-[#002244] text-white py-6">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2024 Queremos Gorditas. Todos los derechos reservados para PersonalRikdom S.A.P.I. de C.V.</p>
+    </div>
+  </footer>
 
-    <!-- Pie de página -->
-    <footer>
-        <p>&copy; 2024 Queremos Gorditas. Todos los derechos reservados para PersonalRikdom S.A.P.I. de C.V.</p>
-    </footer>
+  <script>
+    // EmailJS Initialization
+    emailjs.init("YOUR_USER_ID"); // Reemplaza con tu User ID de EmailJS
 
+    // Toggle Mobile Menu
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // Back to Top Button
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        backToTopButton.style.display = 'block';
+      } else {
+        backToTopButton.style.display = 'none';
+      }
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Menú Diario Items (Editable)
+    const menuItems = [
+      { name: 'Gordita de Chicharrón', image: 'gordita1.jpg', description: 'Deliciosa gordita rellena de chicharrón prensado.' },
+      { name: 'Gordita de Pollo', image: 'gordita2.jpg', description: 'Gordita con pollo deshebrado en salsa verde.' },
+      // Agrega más ítems aquí
+    ];
+
+    // Combos Items (Editable)
+    const comboItems = [
+      { name: 'Combo Familiar', image: 'combo1.jpg', description: '4 gorditas, 2 aguas frescas y papas.' },
+      { name: 'Combo Individual', image: 'combo2.jpg', description: '2 gorditas y 1 agua fresca.' },
+      // Agrega más ítems aquí
+    ];
+
+    // Render Menú Diario
+    const menuContainer = document.getElementById('menu-items');
+    menuItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'menu-item bg-white p-4 rounded-lg shadow-lg';
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-bold mb-2">${item.name}</h3>
+        <p>${item.description}</p>
+      `;
+      menuContainer.appendChild(div);
+    });
+
+    // Render Combos
+    const comboContainer = document.getElementById('combo-items');
+    comboItems.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'menu-item bg-white p-4 rounded-lg shadow-lg';
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" class="w-full h-48 object-cover rounded-lg mb-4">
+        <h3 class="text-xl font-bold mb-2">${item.name}</h3>
+        <p>${item.description}</p>
+      `;
+      comboContainer.appendChild(div);
+    });
+
+    // Form Submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+      }).then(() => {
+        alert('¡Mensaje enviado con éxito!');
+        document.getElementById('contact-form').reset();
+      }, (error) => {
+        alert('Error al enviar el mensaje: ' + JSON.stringify(error));
+      });
+    });
+  </script>
 </body>
 </html>
